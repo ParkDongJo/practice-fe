@@ -1,0 +1,5 @@
+# dependencies
+/practice-react-components/node_modules
+
+# production
+/practice-react-components/build
