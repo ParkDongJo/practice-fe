@@ -6,13 +6,13 @@ export default function Carousel() {
     { id: 2, name: "image2", url: "" },
     { id: 3, name: "image3", url: "" },
   ];
-  const [curr, setCurr] = useState(1);
+  const [curr, setCurr] = useState(0);
 
   const handleClickPrev = () => {
-    setCurr((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurr((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
   const handleClickNext = () => {
-    setCurr((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurr((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -25,24 +25,24 @@ export default function Carousel() {
             <img
               src={image.url}
               alt={image.name}
-              className="w-full object-contain"
+              className="object-contain w-full"
             />
           </li>
         ))}
       </ul>
       <button
-        className="absolute right-[10px] flex h-[10px] w-[10px] items-center justify-center rounded-full bg-black-10 opacity-50"
+        className="absolute left-[10px] flex h-[10px] w-[10px] items-center justify-center rounded-full bg-black-10 opacity-50"
         onClick={handleClickPrev}
       >
         이전
       </button>
       <button
-        className="absolute left-[10px] flex h-[10px] w-[10px] items-center justify-center rounded-full bg-black-10 opacity-50"
+        className="absolute right-[10px] flex h-[10px] w-[10px] items-center justify-center rounded-full bg-black-10 opacity-50"
         onClick={handleClickNext}
       >
         다음
       </button>
-      <ul className="absolute bottom-20 flex w-full justify-center gap-4">
+      <ul className="absolute flex justify-center w-full gap-4 bottom-20">
         {images.map((image, idx) => (
           <li
             key={image.id}
