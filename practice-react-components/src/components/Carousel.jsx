@@ -1,19 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import debounce from "../libs/debouce";
 
 export default function Carousel() {
   const images = [
-    { id: 1, name: "image1", url: "" },
-    { id: 2, name: "image2", url: "" },
-    { id: 3, name: "image3", url: "" },
+    { id: 1, name: "image1", url: "", bgColor: "bg-red-100" },
+    { id: 2, name: "image2", url: "", bgColor: "bg-blue-100" },
+    { id: 3, name: "image3", url: "", bgColor: "bg-green-100" },
   ];
+
   const [curr, setCurr] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const playDebounced = debounce(() => {
+    setIsPlaying(true);
+  }, 500);
+
+  const moveToPrev = () => {
+    setCurr((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }
+  const moveToNext = () => {
+    setCurr((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }
 
   const handleClickPrev = () => {
-    setCurr((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setIsPlaying(false);
+    moveToPrev();
+
+    playDebounced();
   };
   const handleClickNext = () => {
-    setCurr((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setIsPlaying(false);
+    moveToNext();
+
+    playDebounced();
   };
+
+  useEffect(() => {
+    if (isPlaying) {
+      const id = setInterval(() => {
+        moveToNext();
+      }, 3000);
+      return () => clearInterval(id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curr, isPlaying]);
 
   return (
     <div className="relative flex h-[500px] items-center overflow-hidden bg-black-100">
@@ -21,7 +51,7 @@ export default function Carousel() {
         className={`flex h-[300px] items-center ${moveStyle[curr]} transition`}
       >
         {images.map((image) => (
-          <li key={image.id} className="w-[100vw] h-[300px]">
+          <li key={image.id} className={`w-[100vw] h-[300px] ${image.bgColor}`}>
             <img
               src={image.url}
               alt={image.name}

@@ -14,7 +14,7 @@ import OutSide from "./components/OutSide";
 function App() {
   return (
     <div className="App">
-      <OutSide />
+      <Carousel />
     </div>
   );
 }

@@ -1,18 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-/*
-You’re presented with a component called MessageFeed. This component has already been designed. Your task is to write the necessary logic to make it work as expected.
-
-MessageFeed displays a feed box with past messages. Below the feed box, you can find an input element where the user can type in their message. Add the necessary code to append the user message to the existing message feed when the user presses Shift + Enter on their keyboard.
-
-Directions
-You don’t need to worry about styling your application as we have already done it for you. But if you wish to update the styles, you can use styled-components, inline style or tailwindcss.
-Do not edit the data-testid attributes.
-You only need to add the message submission logic.
-Do not let users submit empty messages.
-*/
-
 const MessageFeed = () => {
   const [messages, setMessages] = useState([
     "The minute she landed she understood the reason this was a fly-over state.",
